@@ -173,7 +173,7 @@ const en: Dictionary = {
   },
   cta: {
     title: "Ready to welcome patients from around the world?",
-    sub: "Book a 20-minute demo and we'll show your clinic running in three languages.",
+    sub: "Write to us and we'll arrange a demo tailored to you — see your clinic running in three languages.",
     btn: "Book a demo",
   },
   form: {

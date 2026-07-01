@@ -173,7 +173,7 @@ const es: Dictionary = {
   },
   cta: {
     title: "¿Listos para recibir pacientes del mundo?",
-    sub: "Agendá una demo de 20 minutos y te mostramos tu clínica funcionando en tres idiomas.",
+    sub: "Escribinos y coordinamos una demo a tu medida: te mostramos tu clínica funcionando en tres idiomas.",
     btn: "Agendá una demo",
   },
   form: {
