@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediSeoul — Turismo médico en Corea</title>
+  <meta name="description" content="Tratamientos estéticos y dentales de primer nivel en Corea, con atención en tu idioma. Clínica demo: Seoul Glow Clinic." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+              500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a'
+            },
+            mint: {
+              50: '#ecfdf5', 100: '#d1fae5', 300: '#6ee7b7', 400: '#34d399',
+              500: '#10b981', 600: '#059669'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    .fade-in { animation: fade .5s ease both; }
+    @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* ===== Hero header (portado del componente React a CSS) ===== */
+    /* Entrada escalonada de cada elemento (equivalente a los variants de framer-motion). */
+    .hero2-item { opacity: 0; animation: hero2Up .55s ease-out forwards; }
+    @keyframes hero2Up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    /* Reveal de la imagen con clip-path (equivalente a la animación circOut del original). */
+    .hero2-img { animation: hero2Clip 1.2s cubic-bezier(0, 0.55, 0.45, 1) forwards; }
+    @keyframes hero2Clip {
+      from { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+      to   { clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero2-item, .hero2-img { animation: none; opacity: 1; clip-path: none; }
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-700 bg-white antialiased">
+
+  <!-- ===== Header ===== -->
+  <header class="fixed top-0 inset-x-0 z-40 bg-white/80 backdrop-blur border-b border-slate-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-mint-500 flex items-center justify-center text-white font-bold">M</span>
+        <span class="font-bold text-slate-900 text-lg">MediSeoul</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="#contacto" data-i18n="nav.cta" class="hidden sm:inline-flex text-sm font-semibold text-brand-700 hover:text-brand-900"></a>
+        <div class="flex rounded-full border border-slate-200 overflow-hidden text-sm font-semibold">
+          <button id="lang-en" onclick="setLang('en')" class="px-3 py-1.5 transition">EN</button>
+          <button id="lang-es" onclick="setLang('es')" class="px-3 py-1.5 transition">ES</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-16">
+
+    <!-- ===== Hero header (portado del componente React "hero-section-2" a HTML/Tailwind vanilla) =====
+         Dos columnas: contenido a la izquierda, imagen con reveal clip-path a la derecha.
+         Textos en EN/ES vía el objeto I18N (claves hero2.*). -->
+    <section id="hero2" class="relative flex w-full flex-col overflow-hidden bg-white text-slate-900 md:flex-row md:min-h-[600px] border-b border-slate-100">
+      <!-- Izquierda: contenido (50% en desktop, centrado verticalmente) -->
+      <div class="flex w-full flex-col justify-center p-8 md:w-1/2 md:p-12 lg:p-16">
+        <div>
+          <!-- Eyebrow: slogan (el logo ya está en el nav sticky, no se repite acá) -->
+          <p data-i18n="hero2.slogan" class="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-mint-600 hero2-item" style="animation-delay:.1s"></p>
+          <!-- Título / subtítulo / CTA -->
+          <div>
+            <h1 id="hero2-title" class="text-4xl font-bold leading-tight text-slate-900 md:text-5xl hero2-item" style="animation-delay:.3s"></h1>
+            <div class="my-6 h-1 w-20 bg-brand-600 hero2-item" style="animation-delay:.45s"></div>
+            <p data-i18n="hero2.subtitle" class="mb-8 max-w-md text-base text-slate-500 hero2-item" style="animation-delay:.6s"></p>
+            <a href="#contacto" data-i18n="hero2.cta" class="text-lg font-bold tracking-widest text-brand-600 transition-colors hover:text-brand-700 hero2-item" style="animation-delay:.75s"></a>
+          </div>
+        </div>
+        <!-- Footer: datos de contacto (íconos estilo lucide inline) -->
+        <footer class="mt-12 w-full hero2-item" style="animation-delay:.9s">
+          <div class="grid grid-cols-1 gap-6 text-xs text-slate-500 sm:grid-cols-3">
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-brand-600 mr-2 flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><line x1="2" x2="22" y1="12" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <span data-i18n="hero2.web"></span>
+            </div>
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-brand-600 mr-2 flex-shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span data-i18n="hero2.phone"></span>
+            </div>
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-brand-600 mr-2 flex-shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span data-i18n="hero2.address"></span>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <!-- Derecha: imagen con reveal clip-path -->
+      <div class="hero2-img w-full min-h-[320px] bg-cover bg-center md:w-1/2 md:min-h-full"
+           style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80')"></div>
+    </section>
+
+    <!-- ===== Tratamientos ===== -->
+    <section id="tratamientos" class="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 data-i18n="treat.title" class="text-3xl font-bold text-slate-900"></h2>
+        <p data-i18n="treat.subtitle" class="mt-3 text-slate-600"></p>
+      </div>
+      <div id="treat-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+      <p data-i18n="treat.note" class="mt-6 text-center text-xs text-slate-400"></p>
+    </section>
+
+    <!-- ===== Por qué Corea ===== -->
+    <section id="porque" class="bg-slate-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 data-i18n="why.title" class="text-3xl font-bold text-slate-900"></h2>
+        </div>
+        <div id="why-grid" class="grid md:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- ===== Cómo funciona ===== -->
+    <section id="como" class="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 data-i18n="how.title" class="text-3xl font-bold text-slate-900"></h2>
+        <p data-i18n="how.subtitle" class="mt-3 text-slate-600"></p>
+      </div>
+      <div id="how-grid" class="grid md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- ===== Testimonios ===== -->
+    <section id="testimonios" class="bg-gradient-to-b from-white to-brand-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 data-i18n="test.title" class="text-3xl font-bold text-slate-900"></h2>
+        </div>
+        <div id="test-grid" class="grid md:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- ===== Formulario ===== -->
+    <section id="contacto" class="max-w-3xl mx-auto px-4 sm:px-6 py-20">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 data-i18n="form.title" class="text-3xl font-bold text-slate-900"></h2>
+        <p data-i18n="form.subtitle" class="mt-3 text-slate-600"></p>
+      </div>
+      <form id="lead-form" novalidate class="bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/50 p-6 sm:p-8 grid gap-5">
+        <div>
+          <label data-i18n="form.name" class="block text-sm font-semibold text-slate-700 mb-1.5"></label>
+          <input name="name" type="text" class="w-full rounded-xl border border-slate-200 px-4 py-2.5 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
+          <p data-err="name" class="hidden mt-1 text-xs text-red-500"></p>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label data-i18n="form.lang" class="block text-sm font-semibold text-slate-700 mb-1.5"></label>
+            <select name="prefLang" class="w-full rounded-xl border border-slate-200 px-4 py-2.5 bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none">
+              <option value="en">English</option>
+              <option value="es">Español</option>
+            </select>
+          </div>
+          <div>
+            <label data-i18n="form.treat" class="block text-sm font-semibold text-slate-700 mb-1.5"></label>
+            <select name="treatment" data-i18n-options="form.treatOptions" class="w-full rounded-xl border border-slate-200 px-4 py-2.5 bg-white focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"></select>
+          </div>
+        </div>
+        <div>
+          <label data-i18n="form.dates" class="block text-sm font-semibold text-slate-700 mb-1.5"></label>
+          <input name="dates" type="text" data-i18n-ph="form.datesPh" class="w-full rounded-xl border border-slate-200 px-4 py-2.5 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
+        </div>
+        <div>
+          <label data-i18n="form.contact" class="block text-sm font-semibold text-slate-700 mb-1.5"></label>
+          <input name="contact" type="text" data-i18n-ph="form.contactPh" class="w-full rounded-xl border border-slate-200 px-4 py-2.5 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
+          <p data-err="contact" class="hidden mt-1 text-xs text-red-500"></p>
+        </div>
+        <button type="submit" data-i18n="form.submit" class="w-full rounded-xl bg-brand-600 text-white font-semibold py-3 shadow-lg shadow-brand-600/20 hover:bg-brand-700 transition"></button>
+        <div id="form-success" class="hidden rounded-xl bg-mint-50 border border-mint-300 text-mint-600 px-4 py-3 text-sm font-medium text-center"></div>
+      </form>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="bg-slate-900 text-slate-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid sm:grid-cols-3 gap-8">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-mint-500 flex items-center justify-center text-white font-bold">M</span>
+          <span class="font-bold text-white text-lg">MediSeoul</span>
+        </div>
+        <p data-i18n="footer.tagline" class="text-sm text-slate-400 max-w-xs"></p>
+      </div>
+      <div>
+        <h4 data-i18n="footer.linksTitle" class="font-semibold text-white mb-3 text-sm"></h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#tratamientos" data-i18n="nav.treat" class="hover:text-white"></a></li>
+          <li><a href="#como" data-i18n="nav.how" class="hover:text-white"></a></li>
+          <li><a href="#contacto" data-i18n="nav.contact" class="hover:text-white"></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer.contactTitle" class="font-semibold text-white mb-3 text-sm"></h4>
+        <p class="text-sm text-slate-400">Seoul Glow Clinic</p>
+        <p class="text-sm text-slate-400">Gangnam-gu, Seoul, Korea</p>
+        <p class="text-sm text-slate-400">hello@mediseoul.demo</p>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 py-5 text-center text-xs text-slate-500">
+      <span data-i18n="footer.copy"></span>
+    </div>
+  </footer>
+
+  <!-- ===== WhatsApp flotante ===== -->
+  <a href="https://wa.me/821000000000" target="_blank" rel="noopener"
+     class="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-mint-500 hover:bg-mint-600 shadow-lg flex items-center justify-center transition" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" class="w-7 h-7 fill-white"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  </a>
+
+  <!-- ===== Chat widget (Seoul Glow Clinic) =====
+       Reemplaza al placeholder anterior. Se carga con un solo <script>.
+       position: "left" lo ubica abajo a la izquierda para no chocar con el
+       botón de WhatsApp (abajo a la derecha).
+       En local con `vercel dev`, /api/chat queda en el mismo dominio.
+       Para embeber en OTRO dominio, definí apiUrl y cssUrl con tu URL de Vercel. -->
+  <script>
+    window.SGC_CONFIG = {
+      position: "left",
+      // apiUrl: "https://tu-app.vercel.app/api/chat",
+      // cssUrl: "https://tu-app.vercel.app/widget.css",
+    };
+  </script>
+  <script src="widget.js"></script>
+
+  <script>
+    // ===== i18n strings =====
+    const I18N = {
+      en: {
+        nav: { cta: 'Request consultation →', treat: 'Treatments', how: 'How it works', contact: 'Contact' },
+        hero2: {
+          slogan: 'YOUR HEALTH, OUR CARE',
+          title: 'Care that travels<br><span class="text-brand-600">with you</span>',
+          subtitle: 'We connect international patients with Seoul\'s top aesthetic and dental clinics. Online consultation, clear quotes and support in your own language.',
+          cta: 'BOOK A CONSULTATION',
+          web: 'mediseoul.demo',
+          phone: '+82 10 0000 0000',
+          address: 'Gangnam-gu, Seoul, Korea'
+        },
+        hero: {
+          badge: 'Medical tourism in Korea',
+          title: 'World-class aesthetic & dental care in Korea — in your language',
+          subtitle: 'We connect English- and Spanish-speaking patients with top Seoul clinics. Online consults, transparent quotes, and full support before, during, and after your trip.',
+          cta: 'Request consultation', cta2: 'View treatments',
+          stat1: 'patients assisted', stat2: 'vs. US/EU prices', stat3: 'support languages'
+        },
+        treat: {
+          title: 'Featured treatments',
+          subtitle: 'Indicative prices in USD at our demo partner, Seoul Glow Clinic. Final quote after online consultation.',
+          note: '* Indicative prices, subject to medical evaluation. Not a binding quote.',
+          items: [
+            { icon: '✨', name: 'Rhinoplasty', desc: 'Nose reshaping by board-certified surgeons.', price: 'from $3,200' },
+            { icon: '😁', name: 'Dental veneers', desc: 'Premium porcelain veneers, full smile design.', price: 'from $450 / tooth' },
+            { icon: '💎', name: 'Skin & laser', desc: 'Laser, peeling and glass-skin rejuvenation.', price: 'from $180' },
+            { icon: '🪥', name: 'Dental implants', desc: 'Titanium implants with lifetime guarantee.', price: 'from $900' }
+          ]
+        },
+        why: {
+          title: 'Why Korea?',
+          items: [
+            { icon: '🏥', title: 'World-class quality', desc: 'Internationally accredited clinics and surgeons performing thousands of procedures every year.' },
+            { icon: '💰', title: '40–60% lower cost', desc: 'The same premium results at a fraction of US and European prices — even including travel.' },
+            { icon: '🔬', title: 'Leading technology', desc: 'Korea sets the global standard in aesthetics and dentistry with the latest equipment and techniques.' }
+          ]
+        },
+        how: {
+          title: 'How it works',
+          subtitle: 'Three simple steps from your first question to your treatment.',
+          items: [
+            { step: '1', title: 'Online consultation', desc: 'Tell us your goals. A coordinator answers in your language and reviews your case.' },
+            { step: '2', title: 'Personalized quote', desc: 'Receive a clear plan, timeline and all-in price from the clinic — no surprises.' },
+            { step: '3', title: 'Travel & treatment', desc: 'We arrange your visit and stay by your side throughout the procedure and recovery.' }
+          ]
+        },
+        test: {
+          title: 'What our patients say',
+          items: [
+            { name: 'Sarah M.', country: '🇺🇸 United States', text: 'The whole process was seamless and everyone spoke perfect English. I saved over $4,000 on my veneers.' },
+            { name: 'Lucía G.', country: '🇲🇽 México', text: 'Me atendieron en español de principio a fin. La clínica fue impecable y los resultados, increíbles.' },
+            { name: 'James T.', country: '🇬🇧 United Kingdom', text: 'From the online consult to recovery, I always felt looked after. Highly recommend MediSeoul.' }
+          ]
+        },
+        form: {
+          title: 'Request your free consultation',
+          subtitle: 'No commitment. A coordinator will reach out in your preferred language.',
+          name: 'Full name', lang: 'Preferred language', treat: 'Treatment of interest',
+          treatOptions: ['Aesthetic surgery', 'Dental', 'Skin & laser', 'Not sure yet'],
+          dates: 'Tentative travel dates', datesPh: 'e.g. September 2026',
+          contact: 'WhatsApp or email', contactPh: 'you@email.com or +1 555 000 0000',
+          submit: 'Request consultation',
+          success: '✓ Thank you! Your request was received. A coordinator will contact you shortly.',
+          errName: 'Please enter your name.', errContact: 'Please enter a valid email or WhatsApp number.'
+        },
+        chat: { title: 'Assistant', body: 'Assistant — coming soon.' },
+        footer: {
+          tagline: 'Connecting international patients with Korea\'s leading aesthetic and dental clinics.',
+          linksTitle: 'Links', contactTitle: 'Contact',
+          copy: '© 2026 MediSeoul (demo). Not a medical provider. Demo clinic: Seoul Glow Clinic.'
+        }
+      },
+      es: {
+        nav: { cta: 'Solicitar consulta →', treat: 'Tratamientos', how: 'Cómo funciona', contact: 'Contacto' },
+        hero2: {
+          slogan: 'TU SALUD, NUESTRO CUIDADO',
+          title: 'Cuidado que viaja<br><span class="text-brand-600">con vos</span>',
+          subtitle: 'Conectamos a pacientes internacionales con las mejores clínicas estéticas y dentales de Seúl. Consulta online, presupuesto claro y acompañamiento en tu idioma.',
+          cta: 'AGENDAR CONSULTA',
+          web: 'mediseoul.demo',
+          phone: '+82 10 0000 0000',
+          address: 'Gangnam-gu, Seúl, Corea'
+        },
+        hero: {
+          badge: 'Turismo médico en Corea',
+          title: 'Tratamientos estéticos y dentales de primer nivel en Corea — atención en tu idioma',
+          subtitle: 'Conectamos a pacientes de habla inglesa y española con las mejores clínicas de Seúl. Consultas online, cotizaciones claras y acompañamiento antes, durante y después de tu viaje.',
+          cta: 'Solicitar consulta', cta2: 'Ver tratamientos',
+          stat1: 'pacientes atendidos', stat2: 'vs. precios US/EU', stat3: 'idiomas de atención'
+        },
+        treat: {
+          title: 'Tratamientos destacados',
+          subtitle: 'Precios orientativos en USD en nuestra clínica demo, Seoul Glow Clinic. Cotización final tras la consulta online.',
+          note: '* Precios orientativos, sujetos a evaluación médica. No constituyen una cotización vinculante.',
+          items: [
+            { icon: '✨', name: 'Rinoplastia', desc: 'Remodelado nasal con cirujanos certificados.', price: 'desde $3.200' },
+            { icon: '😁', name: 'Carillas dentales', desc: 'Carillas de porcelana premium, diseño de sonrisa.', price: 'desde $450 / pieza' },
+            { icon: '💎', name: 'Piel y láser', desc: 'Láser, peeling y rejuvenecimiento glass-skin.', price: 'desde $180' },
+            { icon: '🪥', name: 'Implantes dentales', desc: 'Implantes de titanio con garantía de por vida.', price: 'desde $900' }
+          ]
+        },
+        why: {
+          title: '¿Por qué Corea?',
+          items: [
+            { icon: '🏥', title: 'Calidad de primer nivel', desc: 'Clínicas y cirujanos con acreditación internacional que realizan miles de procedimientos al año.' },
+            { icon: '💰', title: 'Precio 40–60% menor', desc: 'Los mismos resultados premium a una fracción del precio de EE. UU. y Europa, incluso con el viaje.' },
+            { icon: '🔬', title: 'Tecnología de punta', desc: 'Corea marca el estándar mundial en estética y odontología con el equipamiento y las técnicas más recientes.' }
+          ]
+        },
+        how: {
+          title: 'Cómo funciona',
+          subtitle: 'Tres pasos simples desde tu primera pregunta hasta tu tratamiento.',
+          items: [
+            { step: '1', title: 'Consulta online', desc: 'Contanos tus objetivos. Un coordinador te responde en tu idioma y revisa tu caso.' },
+            { step: '2', title: 'Cotización personalizada', desc: 'Recibís un plan claro, fechas y un precio todo incluido de la clínica, sin sorpresas.' },
+            { step: '3', title: 'Viaje y tratamiento', desc: 'Coordinamos tu visita y te acompañamos durante el procedimiento y la recuperación.' }
+          ]
+        },
+        test: {
+          title: 'Lo que dicen nuestros pacientes',
+          items: [
+            { name: 'Sarah M.', country: '🇺🇸 Estados Unidos', text: 'Todo el proceso fue impecable y todos hablaban inglés perfecto. Ahorré más de $4.000 en mis carillas.' },
+            { name: 'Lucía G.', country: '🇲🇽 México', text: 'Me atendieron en español de principio a fin. La clínica fue impecable y los resultados, increíbles.' },
+            { name: 'James T.', country: '🇬🇧 Reino Unido', text: 'Desde la consulta online hasta la recuperación, siempre me sentí cuidado. Recomiendo MediSeoul totalmente.' }
+          ]
+        },
+        form: {
+          title: 'Solicitá tu consulta gratuita',
+          subtitle: 'Sin compromiso. Un coordinador te contactará en tu idioma preferido.',
+          name: 'Nombre completo', lang: 'Idioma preferido', treat: 'Tratamiento de interés',
+          treatOptions: ['Cirugía estética', 'Dental', 'Piel y láser', 'Aún no lo sé'],
+          dates: 'Fechas tentativas de viaje', datesPh: 'ej. Septiembre 2026',
+          contact: 'WhatsApp o email', contactPh: 'vos@email.com o +1 555 000 0000',
+          submit: 'Solicitar consulta',
+          success: '✓ ¡Gracias! Recibimos tu solicitud. Un coordinador te contactará a la brevedad.',
+          errName: 'Por favor ingresá tu nombre.', errContact: 'Ingresá un email o número de WhatsApp válido.'
+        },
+        chat: { title: 'Asistente', body: 'Asistente — próximamente.' },
+        footer: {
+          tagline: 'Conectamos a pacientes internacionales con las principales clínicas estéticas y dentales de Corea.',
+          linksTitle: 'Enlaces', contactTitle: 'Contacto',
+          copy: '© 2026 MediSeoul (demo). No es un proveedor médico. Clínica demo: Seoul Glow Clinic.'
+        }
+      }
+    };
+
+    // ===== state (in-memory, no localStorage) =====
+    let currentLang = 'en';
+
+    function get(obj, path) {
+      return path.split('.').reduce((o, k) => (o ? o[k] : undefined), obj);
+    }
+
+    function render() {
+      const t = I18N[currentLang];
+      document.documentElement.lang = currentLang;
+
+      // simple text bindings
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const val = get(t, el.getAttribute('data-i18n'));
+        if (typeof val === 'string') el.textContent = val;
+      });
+      // placeholders
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const val = get(t, el.getAttribute('data-i18n-ph'));
+        if (typeof val === 'string') el.setAttribute('placeholder', val);
+      });
+      // select options (treatment)
+      document.querySelectorAll('[data-i18n-options]').forEach(el => {
+        const opts = get(t, el.getAttribute('data-i18n-options'));
+        if (Array.isArray(opts)) {
+          el.innerHTML = opts.map(o => `<option>${o}</option>`).join('');
+        }
+      });
+
+      // hero2 header: el título lleva <br> y un <span> de color, así que va como HTML.
+      // Contenido propio y de confianza (definido en el objeto I18N de arriba).
+      document.getElementById('hero2-title').innerHTML = t.hero2.title;
+
+      // treatment cards
+      document.getElementById('treat-grid').innerHTML = t.treat.items.map(i => `
+        <div class="bg-white rounded-2xl border border-slate-100 p-6 hover:shadow-xl hover:shadow-slate-200/60 hover:-translate-y-1 transition">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center text-2xl mb-4">${i.icon}</div>
+          <h3 class="font-bold text-slate-900">${i.name}</h3>
+          <p class="mt-1.5 text-sm text-slate-500">${i.desc}</p>
+          <p class="mt-4 font-semibold text-mint-600">${i.price}</p>
+        </div>`).join('');
+
+      // why grid
+      document.getElementById('why-grid').innerHTML = t.why.items.map(i => `
+        <div class="bg-white rounded-2xl border border-slate-100 p-7">
+          <div class="w-12 h-12 rounded-xl bg-mint-50 flex items-center justify-center text-2xl mb-4">${i.icon}</div>
+          <h3 class="font-bold text-slate-900 text-lg">${i.title}</h3>
+          <p class="mt-2 text-slate-600 text-sm">${i.desc}</p>
+        </div>`).join('');
+
+      // how grid
+      document.getElementById('how-grid').innerHTML = t.how.items.map(i => `
+        <div class="relative bg-gradient-to-b from-brand-50 to-white rounded-2xl border border-brand-100 p-7">
+          <div class="w-10 h-10 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center mb-4">${i.step}</div>
+          <h3 class="font-bold text-slate-900 text-lg">${i.title}</h3>
+          <p class="mt-2 text-slate-600 text-sm">${i.desc}</p>
+        </div>`).join('');
+
+      // testimonials
+      document.getElementById('test-grid').innerHTML = t.test.items.map(i => `
+        <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+          <div class="text-mint-500 text-lg">★★★★★</div>
+          <p class="mt-3 text-slate-600 text-sm italic">“${i.text}”</p>
+          <div class="mt-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-200 to-mint-200"></div>
+            <div>
+              <p class="font-semibold text-slate-900 text-sm">${i.name}</p>
+              <p class="text-xs text-slate-400">${i.country}</p>
+            </div>
+          </div>
+        </div>`).join('');
+
+      // active lang button
+      document.getElementById('lang-en').className = 'px-3 py-1.5 transition ' + (currentLang === 'en' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:bg-slate-50');
+      document.getElementById('lang-es').className = 'px-3 py-1.5 transition ' + (currentLang === 'es' ? 'bg-brand-600 text-white' : 'text-slate-500 hover:bg-slate-50');
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      // reset form messages on lang change
+      document.getElementById('form-success').classList.add('hidden');
+      render();
+    }
+
+    function toggleChat() {
+      document.getElementById('chat-panel').classList.toggle('hidden');
+    }
+
+    // ===== form validation =====
+    document.getElementById('lead-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const t = I18N[currentLang];
+      const f = e.target;
+      let ok = true;
+
+      const nameVal = f.name.value.trim();
+      const nameErr = document.querySelector('[data-err="name"]');
+      if (!nameVal) {
+        nameErr.textContent = t.form.errName; nameErr.classList.remove('hidden'); ok = false;
+      } else { nameErr.classList.add('hidden'); }
+
+      const contactVal = f.contact.value.trim();
+      const contactErr = document.querySelector('[data-err="contact"]');
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRe = /[\d+][\d\s()-]{6,}/;
+      if (!contactVal || !(emailRe.test(contactVal) || phoneRe.test(contactVal))) {
+        contactErr.textContent = t.form.errContact; contactErr.classList.remove('hidden'); ok = false;
+      } else { contactErr.classList.add('hidden'); }
+
+      const success = document.getElementById('form-success');
+      if (ok) {
+        success.textContent = t.form.success;
+        success.classList.remove('hidden');
+        f.reset();
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        success.classList.add('hidden');
+      }
+    });
+
+    // initial paint
+    render();
+  </script>
+</body>
+</html>
