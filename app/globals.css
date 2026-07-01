@@ -162,9 +162,7 @@ a {
   .ai-grid {
     grid-template-columns: 1fr !important;
   }
-  .hero-chat {
-    order: -1;
-  }
+  /* En mobile: primero el texto/CTAs (orden natural del DOM), el chat abajo. */
 }
 
 @media (prefers-reduced-motion: reduce) {
