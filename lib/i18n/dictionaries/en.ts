@@ -176,6 +176,17 @@ const en: Dictionary = {
     sub: "Book a 20-minute demo and we'll show your clinic running in three languages.",
     btn: "Book a demo",
   },
+  form: {
+    name: "Name",
+    clinic: "Clinic",
+    email: "Email",
+    message: "Tell us what you need (optional)",
+    submit: "Request a demo",
+    sending: "Sending…",
+    success: "Thanks! We'll reach out by email very soon.",
+    error: "Couldn't send. Please try again or email us.",
+    subject: "New demo request — Mediseo",
+  },
   footer: {
     tag: "Global patients, Korean care.",
   },

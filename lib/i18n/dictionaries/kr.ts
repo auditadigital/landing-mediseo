@@ -167,6 +167,17 @@ const kr: Dictionary = {
     sub: "20분 데모를 예약하시면 세 가지 언어로 작동하는 병원을 보여드립니다.",
     btn: "데모 예약하기",
   },
+  form: {
+    name: "이름",
+    clinic: "병원명",
+    email: "이메일",
+    message: "필요한 내용을 알려주세요 (선택)",
+    submit: "데모 신청하기",
+    sending: "전송 중…",
+    success: "감사합니다! 곧 이메일로 연락드리겠습니다.",
+    error: "전송하지 못했습니다. 다시 시도하거나 이메일로 문의해 주세요.",
+    subject: "새 데모 신청 — Mediseo",
+  },
   footer: {
     tag: "글로벌 환자, 한국의 케어.",
   },

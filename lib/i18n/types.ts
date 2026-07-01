@@ -29,6 +29,17 @@ export interface Dictionary {
   };
   faq: { title: string; items: { q: string; a: string }[] };
   cta: { title: string; sub: string; btn: string };
+  form: {
+    name: string;
+    clinic: string;
+    email: string;
+    message: string;
+    submit: string;
+    sending: string;
+    success: string;
+    error: string;
+    subject: string;
+  };
   footer: { tag: string };
   chatDemo: ChatStep[];
 }

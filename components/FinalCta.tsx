@@ -1,6 +1,8 @@
 import type { Dictionary } from "@/lib/i18n";
+import type { Lang } from "@/lib/i18n/config";
+import ContactForm from "./ContactForm";
 
-export default function FinalCta({ dict }: { dict: Dictionary }) {
+export default function FinalCta({ dict, lang }: { dict: Dictionary; lang: Lang }) {
   return (
     <section id="cta" style={{ scrollMarginTop: 74, padding: "30px 6vw 90px" }}>
       <div
@@ -66,25 +68,9 @@ export default function FinalCta({ dict }: { dict: Dictionary }) {
           >
             {dict.cta.sub}
           </p>
-          <a
-            href="#top"
-            className="btn-coral-white"
-            style={{
-              display: "inline-block",
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: 17,
-              background: "var(--coral)",
-              color: "var(--ink)",
-              textDecoration: "none",
-              padding: "16px 36px",
-              borderRadius: 13,
-              boxShadow: "0 10px 30px rgba(244,123,94,.4)",
-              transition: "background .2s ease",
-            }}
-          >
-            {dict.cta.btn}
-          </a>
+          <div style={{ maxWidth: 520, margin: "0 auto" }}>
+            <ContactForm dict={dict} lang={lang} />
+          </div>
         </div>
       </div>
     </section>

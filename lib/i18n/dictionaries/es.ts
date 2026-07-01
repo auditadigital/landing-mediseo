@@ -176,6 +176,17 @@ const es: Dictionary = {
     sub: "Agendá una demo de 20 minutos y te mostramos tu clínica funcionando en tres idiomas.",
     btn: "Agendá una demo",
   },
+  form: {
+    name: "Nombre",
+    clinic: "Clínica",
+    email: "Email",
+    message: "Contanos qué necesitás (opcional)",
+    submit: "Solicitar una demo",
+    sending: "Enviando…",
+    success: "¡Gracias! Te contactamos por email muy pronto.",
+    error: "No se pudo enviar. Probá de nuevo o escribinos por email.",
+    subject: "Nueva solicitud de demo — Mediseo",
+  },
   footer: {
     tag: "Pacientes globales, cuidado coreano.",
   },

@@ -33,7 +33,7 @@ export default async function Page({
       <Pricing dict={dict} />
       <Testimonials dict={dict} />
       <Faq dict={dict} />
-      <FinalCta dict={dict} />
+      <FinalCta dict={dict} lang={lang} />
       <Footer dict={dict} />
     </>
   );
